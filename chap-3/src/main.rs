@@ -55,6 +55,15 @@ fn main() {
 
     println!("The result loop returned {loop_in_let}");
 
+
+
+    let ll = labeled_loop();
+
+    println!("counts value returned: {ll}");
+
+
+    collection_iter();
+
 }
 
 fn another_function(x: i32) {
@@ -82,8 +91,57 @@ fn returning_result_loop() -> i32 {
         counter += 1;
 
         if counter == 10 {
-            break counter *2;
+            break counter *2    // Query: why is this working as an expression and a statement?
         }
     };
-    x
+    x //this is an expression
+}
+
+
+fn labeled_loop() -> i32 {
+    let mut count = 0;
+    'counting_up: loop {
+        println!("Counting up: count = {count}");
+        let mut remaining = 10;
+
+        loop {
+            println!("remaining: {remaining}");
+            if remaining == 9 {
+                break;
+            } 
+            if count == 2 {
+                break 'counting_up;
+            }
+
+            remaining = remaining -1;
+        }
+        count = count +1;
+
+    }
+
+    count
+
+}
+
+
+fn collection_iter() {
+    let a = [10, 20, 30, 40, 50];
+    let mut idx = 0;
+
+    while idx < 5 {
+        print!("{} ", a[idx]);
+        idx = idx+1;
+    }
+
+    for val in a {
+        print!("{val} ");
+    }
+    println!();
+    println!("NOW RANGE USAGE");
+
+    for num in 1..19 {  //use (1..10).rev() to reverse the series
+        print!("{num} ");
+    }
+    println!();
+
 }

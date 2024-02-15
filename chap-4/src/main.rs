@@ -48,6 +48,26 @@ fn main() {
 
     println!("The length of '{}' is {}.", s2, len);
 
+    let length = calculate_length(&s2);
+
+    println!("The length is {length}");
+
+    let mut s2 = String::from("hello");     // s2 comes into scope
+
+    change(&mut s2);
+    println!("The length of '{}' is", s2);
+
+    let r3 = &mut s2; // no problem
+    println!("{}", r3);
+
+    let s = no_dangle();
+    println!("{s}");
+
+    let s = String::from("hello world");
+
+    let hello = &s[0..5]; //string slices
+    let world = &s[6..11];
+
 }
 
 
@@ -82,4 +102,18 @@ a_string  // a_string is returned and moves out to the calling function
 fn calculate_len(s: String) -> (String, usize) {
     let lens = s.len();
     (s, lens)
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+
+fn change(s: &mut String) {
+    s.push_str("world");
+}
+
+fn no_dangle() -> String {
+    let s = String::from("hello");
+
+    s
 }

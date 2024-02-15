@@ -65,8 +65,33 @@ fn main() {
 
     let s = String::from("hello world");
 
-    let hello = &s[0..5]; //string slices
-    let world = &s[6..11];
+    // let hello = &s[0..5]; //string slices
+    let world = &s[6..];
+    println!("the world {world}");
+    // let hello =  &s[0..first_word(&s)];
+    let hello = first_word(&s);
+
+    println!("first word {hello}");
+
+    let my_string_literal = "hello world";
+
+    // `first_word` works on slices of string literals, whether partial or whole
+    let word = first_word(&my_string_literal[0..6]);
+    println!("partial str literal: {word}");
+
+    let word = first_word(&my_string_literal[..]);
+    println!("full str literal: {word}");
+
+    let word = first_word(my_string_literal);
+    println!("without slices str literal: {word}");
+
+    let a = [1, 2, 3, 4, 5];
+
+    let slice = &a[1..3];
+
+    assert_eq!(slice, &[2, 3], "These are not equal!! ");
+
+
 
 }
 
@@ -117,3 +142,19 @@ fn no_dangle() -> String {
 
     s
 }
+
+
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate(){
+        if item == b' ' {
+            // return i;
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+    // s.len()
+}
+
+

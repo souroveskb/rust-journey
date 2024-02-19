@@ -1,4 +1,4 @@
-use std::fs::{File};
+use std::fs::File;
 use std::io::{ErrorKind, Read};
 
 #[allow(unused, dead_code)]

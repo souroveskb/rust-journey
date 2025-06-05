@@ -7,7 +7,7 @@ enum Result<T, E> {
     Eee(E),
 }
 
-#[allow(unused, dead_code)]
+#[allow(unused)]
 fn main() {
     println!("Hello, world!");
     // panic!("crash and burn");

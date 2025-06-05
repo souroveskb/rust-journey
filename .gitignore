@@ -1,5 +1,10 @@
 */target/
 */main
+<<<<<<< HEAD
 */src/*.txt
 
 */*/target/
+=======
+
+data/
+>>>>>>> fee8aa410e6e1766dc32c5517e651871384dba52

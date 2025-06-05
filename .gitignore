@@ -1,2 +1,5 @@
 */target/
 */main
+*/src/*.txt
+
+*/*/target/

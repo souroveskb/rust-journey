@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{ErrorKind, Read};
+use std::io::{ErrorKind, Read, Write};
 
 #[allow(unused, dead_code)]
 enum Result<T, E> {
@@ -29,6 +29,24 @@ fn main() {
         },
     };
 
+    // let mut contents = String::new();
+
+    let mut another_file_result = File::open("src/another.txt");
+    let mut another_file = match another_file_result {
+        Ok(file) => file,
+        Err(e) => match e.kind() {
+            ErrorKind::NotFound => match File::create("src/another.txt") {
+                Ok(nfile) => {
+                    nfile
+                },
+                Err(e) => panic!("Error creating file {:?}", e),
+            },
+            other => {
+                panic!("problem opening file{:?}", other)
+            }
+        },
+    };
+
     // let mut greeting_file = File::open("hello.txt").unwrap_or_else(|error | {
     //     if error.kind() == ErrorKind::NotFound {
     //         File::create("hello.txt").unwrap_or_else(|error|{
@@ -38,12 +56,12 @@ fn main() {
     //         panic!("Problem opening file {}", error);
     //     }
     // });
-    
+    another_file.write_all(b"Hello, world!");
 
     //read contents----
     let mut contents = String::new();
 
-    let read = match greeting_file.read_to_string(&mut contents) {
+    let read = match another_file.read_to_string(&mut contents) {
         Ok(sz) => {
             println!("Contents of the file:");
             println!("{} and size {}", contents, sz);
@@ -53,6 +71,10 @@ fn main() {
             println!("Error reading file: {:?}", e);
         }
     };   
+
+    // println!("{:?}", read);
+
+
 
 
 
